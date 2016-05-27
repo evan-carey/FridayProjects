@@ -13,6 +13,7 @@ class Renderer {
         // create renderer
         this.renderer = new THREE.WebGLRenderer({ alpha: true });
 
+
         // set dimensions
         this.renderer.setSize(width, height);
         this.renderer.setClearColor(0x000000, 1);
@@ -25,7 +26,7 @@ class Renderer {
         this.scene = new THREE.Scene();
 
         // create camera
-        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+        this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 100);
 
         // position camera
         this.camera.position.set(0, 3, 5);
@@ -36,8 +37,8 @@ class Renderer {
          */
 
         // point light
-        let pLight = new THREE.DirectionalLight(0xffffff, .7);
-        pLight.position.set(7, 10, -1);
+        let pLight = new THREE.PointLight(0xffffff, .7);
+        pLight.position.set(3, 10,3);
         this.scene.add(pLight);
 
         // ambient light
@@ -50,10 +51,11 @@ class Renderer {
          */
 
         // add plane
-        let planeGeometry = new THREE.PlaneGeometry(10, 8);
-        let planeMaterial = new THREE.MeshPhongMaterial({ color: 0x444444, specular: 0x888888, side: THREE.DoubleSide });
+        let planeGeometry = new THREE.PlaneGeometry(10, 10);
+        let planeMaterial = new THREE.MeshPhongMaterial({ color: 0x444444, specular: 0x888888, shininess: 20 });
+
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        this.plane.rotation.x = Math.PI / 2;
+        this.plane.rotation.x = -Math.PI / 2;
         this.scene.add(this.plane);
 
         // add cube
@@ -97,7 +99,7 @@ class Renderer {
     update() {
         let time: number = Date.now() * 0.001;
         this.frame += 0.01;
-        // this.cube.rotateY(0.01);
+        this.cube.rotateY(0.01);
     }
 
     render() {
